@@ -60,7 +60,7 @@ class AuthController extends Controller
         //retornamos la rspuesta 
         return response()->json([
             'message' => 'usuario registrado correctamente',
-            'user' => $user,
+            'user' => auth()->user()->load('roles'),
             'access_token' => $token,
             'token_type'=> 'bearer'
         ],201);
