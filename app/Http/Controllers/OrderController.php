@@ -17,7 +17,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         try{
-            $query = Order::with(['user', 'item_producto', 'pagos']);
+            $query = Order::with(['user', 'items.producto', 'pagos']);
             if($request->estado){
                 $query->where('estado', $request->estado);
 
@@ -27,6 +27,7 @@ class OrderController extends Controller
                 $query->where('user_id', $request->user_id);
             }
             $orders = $query->orderBy('fecha','desc')->get();
+            return response()->json($orders);
             
         }catch(\Exception $e){
             return response()->json([

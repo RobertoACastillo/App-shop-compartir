@@ -60,7 +60,7 @@ class AuthController extends Controller
         //retornamos la rspuesta 
         return response()->json([
             'message' => 'usuario registrado correctamente',
-            'user' => auth()->user()->load('roles'),
+            'user' => $user->load('roles'),
             'access_token' => $token,
             'token_type'=> 'bearer'
         ],201);
@@ -71,7 +71,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'user' => auth()->user(),
+            'user' => auth()->user()->load('roles'),
             'expires_in' => auth()->factory()->getTTL() *60,
         ]);
     }
